@@ -1,6 +1,4 @@
-import { ObservablePoint } from "@pixi/math"
-import type { InteractionEvent } from "@pixi/interaction"
-import { Compatibility } from "../compatibility/compatibility"
+import { ObservablePoint } from "pixi.js"
 import { Quat } from "../math/quat"
 import { Vec3 } from "../math/vec3"
 import { Camera } from "./camera"
@@ -174,20 +172,20 @@ export class CameraOrbitControl {
     }
   }
 
-  protected onMouseDownInteraction = (e: InteractionEvent): void => {
-    if (this.allowControl) {
-      if (!e.stopped) {
-        this._grabbed = true
-        const originalEvent = e.data.originalEvent
-        const touchEvent = originalEvent as TouchEvent
-        const mouseEvent = originalEvent as MouseEvent
-        const touch = touchEvent?.targetTouches?.[0]
-        const clientX = touch?.clientX ?? mouseEvent?.clientX
-        const clientY = touch?.clientY ?? mouseEvent?.clientY
-        this.onPointerDown(clientX, clientY)
-      }
-    }
-  }
+  // protected onMouseDownInteraction = (e: InteractionEvent): void => {
+  //   if (this.allowControl) {
+  //     if (!e.stopped) {
+  //       this._grabbed = true
+  //       const originalEvent = e.data.originalEvent
+  //       const touchEvent = originalEvent as TouchEvent
+  //       const mouseEvent = originalEvent as MouseEvent
+  //       const touch = touchEvent?.targetTouches?.[0]
+  //       const clientX = touch?.clientX ?? mouseEvent?.clientX
+  //       const clientY = touch?.clientY ?? mouseEvent?.clientY
+  //       this.onPointerDown(clientX, clientY)
+  //     }
+  //   }
+  // }
 
   protected onMouseDown = (e: MouseEvent): void => {
     if (this.allowControl) {
@@ -274,10 +272,6 @@ export class CameraOrbitControl {
 
   protected bind(): void {
     this.camera.renderer.on("prerender", this.onPreRender)
-    let interaction = Compatibility.getInteractionPlugin(this.camera.renderer)
-    if (interaction) {
-      interaction.on("mousedown", this.onMouseDownInteraction)
-    }
     this._element.addEventListener("mousedown", this.onMouseDown)
     this._element.addEventListener("touchstart", this.onTouchStart)
     this._element.addEventListener("wheel", this.onWheel)

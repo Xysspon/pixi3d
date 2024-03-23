@@ -1,5 +1,5 @@
-import { Renderer, Shader } from "@pixi/core"
-import { DEG_TO_RAD } from "@pixi/math"
+import { Renderer, Shader } from "pixi.js"
+import { DEG_TO_RAD } from "pixi.js"
 import { LightType } from "../../lighting/light-type"
 import { StandardMaterialFeatureSet } from "./standard-material-feature-set"
 import { StandardShader } from "./standard-shader"

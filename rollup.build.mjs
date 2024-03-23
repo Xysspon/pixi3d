@@ -1,12 +1,13 @@
-const pkg = require("./package.json")
-
 import esbuild from "rollup-plugin-esbuild";
 import image from "@rollup/plugin-image"
 import resolve from '@rollup/plugin-node-resolve'
-import glsl from "./rollup-plugin-glsl"
-import jscc from "rollup-plugin-jscc"
+import glsl from "./rollup-plugin-glsl.mjs"
+
+import fs from "fs"
+const pkg = JSON.parse(fs.readFileSync("./package.json"))
 
 const packages = [
+  "pixi.js",
   "@pixi/assets",
   "@pixi/constants",
   "@pixi/core",
@@ -26,12 +27,6 @@ packages.forEach(function (key) {
 const banner = `/* Pixi3D v${pkg.version} */`
 
 const plugins = ({ compatibility = {}, minify = false } = {}) => [
-  jscc({
-    values: {
-      _PIXI_COMPATIBILITY_LOADERS: compatibility.loaders,
-      _PIXI_COMPATIBILITY_ASSETS: compatibility.assets,
-    }
-  }),
   esbuild({
     target: "es2017",
     minify
@@ -71,25 +66,13 @@ export default [
       assets: true
     }
   }),
-  ...format("dist/cjs/pixi5/", "cjs", {
-    compatibility: {
-      loaders: true,
-      assets: false
-    }
-  }),
-  ...format("dist/cjs/pixi7/", "cjs", {
+  ...format("dist/cjs/", "cjs", {
     compatibility: {
       loaders: false,
       assets: true
     }
   }),
-  ...format("dist/esm/pixi5/", "esm", {
-    compatibility: {
-      loaders: true,
-      assets: false
-    }
-  }),
-  ...format("dist/esm/pixi7/", "esm", {
+  ...format("dist/esm/", "esm", {
     compatibility: {
       loaders: false,
       assets: true

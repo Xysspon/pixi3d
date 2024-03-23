@@ -1,5 +1,5 @@
-import { BatchGeometry } from "@pixi/core"
-import { TYPES } from "@pixi/constants"
+import { BatchGeometry } from "pixi.js"
+import { TYPES } from "pixi.js"
 
 export class SpriteBatchGeometry extends BatchGeometry {
   constructor() {

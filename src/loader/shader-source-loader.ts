@@ -1,26 +1,17 @@
-import { Compatibility } from "../compatibility/compatibility"
-import { LoaderResourceResponseType } from "../compatibility/compatibility-version"
-import { settings } from "@pixi/settings"
+import { ExtensionType, LoaderParser, extensions, settings } from "pixi.js"
 
-const EXTENSIONS = ["glsl", "vert", "frag"]
-
-export const ShaderSourceLoader = {
-  use: (resource: any, next: () => void) => {
-    next()
-  },
-  add: function () {
-    for (let ext of EXTENSIONS) {
-      Compatibility.setLoaderResourceExtensionType(ext,
-        LoaderResourceResponseType.text)
-    }
-  },
+export const ShaderSourceLoader: LoaderParser = {
   test(url: string): boolean {
     return url.includes(".glsl") || url.includes(".vert") || url.includes(".frag")
   },
-  async load(url: string): Promise<string> {
+  async load<T>(url: string): Promise<T> {
     const response = await settings.ADAPTER.fetch(url)
-    return await response.text()
+    return (await response.text()) as T
   },
+  extension: {
+    type: [ExtensionType.LoadParser],
+    name: "shader"
+  }
 }
 
-Compatibility.installLoaderPlugin("shader", ShaderSourceLoader)
+extensions.add(ShaderSourceLoader)

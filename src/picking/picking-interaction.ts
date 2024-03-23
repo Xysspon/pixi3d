@@ -1,9 +1,6 @@
-import { Ticker, UPDATE_PRIORITY } from "@pixi/ticker"
-import { IRendererPlugin, Renderer } from "@pixi/core"
-import { Point } from "@pixi/math"
-import { PickingMap } from "./picking-map"
+import { ExtensionMetadata, ExtensionType, ISystem, Point, Renderer, Ticker, UPDATE_PRIORITY, extensions } from "pixi.js"
 import { PickingHitArea } from "./picking-hitarea"
-import { Compatibility } from "../compatibility/compatibility"
+import { PickingMap } from "./picking-map"
 
 /**
  * Manages the picking hit areas by keeping track on which hit areas needs to 
@@ -11,7 +8,7 @@ import { Compatibility } from "../compatibility/compatibility"
  * is then used to map a mesh to a x/y coordinate. The picking manager is 
  * registered as a renderer plugin.
  */
-export class PickingInteraction implements IRendererPlugin {
+export class PickingInteraction implements ISystem {
   private _map: PickingMap
   private _hitAreas: PickingHitArea[] = []
 
@@ -38,10 +35,10 @@ export class PickingInteraction implements IRendererPlugin {
     // the "hitTest" function needs to be called. Otherwise, in some 
     // circumstances; the picking is affected by in which order the interaction 
     // object was added to the heirarchy.
-    let interaction = Compatibility.getInteractionPlugin(this.renderer)
-    if (interaction) {
-      interaction.hitTest(new Point(0, 0))
-    }
+    // let interaction = this.renderer.plugins.interaction;
+    // if (interaction) {
+    //   interaction.hitTest(new Point(0, 0))
+    // }
     if (this._hitAreas.length > 0) {
       this._map.resizeToAspect()
       this._map.update(this._hitAreas); this._hitAreas = []
@@ -68,6 +65,11 @@ export class PickingInteraction implements IRendererPlugin {
     }
     return this._map.containsId(x, y, hitArea.id)
   }
+
+  static extension: ExtensionMetadata = {
+    type: [ExtensionType.RendererPlugin],
+    name: "picking"
+  }
 }
 
-Compatibility.installRendererPlugin("picking", PickingInteraction)
+extensions.add(PickingInteraction)

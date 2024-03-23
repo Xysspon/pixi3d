@@ -1,8 +1,4 @@
-import { RenderTexture, Renderer } from "@pixi/core"
-import { DisplayObject, IDestroyOptions } from "@pixi/display"
-import { Sprite } from "@pixi/sprite"
-import { Ticker } from "@pixi/ticker"
-import { Compatibility } from "../compatibility/compatibility"
+import { DisplayObject, IDestroyOptions, RenderTexture, Renderer, Sprite, Ticker } from "pixi.js"
 import { CompositeSpriteOptions } from "./composite-sprite-options"
 
 /**
@@ -45,7 +41,7 @@ export class CompositeSprite extends Sprite {
     }
     if (objectToRender) {
       this._tickerRender = () => {
-        if (Compatibility.isRendererDestroyed(renderer)) {
+        if (Object.keys((renderer as any)._systemsHash).length === 0) {
           Ticker.shared.remove(this._tickerRender); return
         }
         if (this.worldVisible && this.worldAlpha > 0 && this.renderable) {
@@ -75,6 +71,6 @@ export class CompositeSprite extends Sprite {
    * @param object The object to render.
    */
   renderObject(object: DisplayObject) {
-    Compatibility.render(this.renderer, object, this.renderTexture)
+    this.renderer.render(object, { renderTexture: this.renderTexture })
   }
 }

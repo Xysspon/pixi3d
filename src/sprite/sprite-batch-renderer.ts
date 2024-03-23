@@ -1,11 +1,7 @@
-import { Renderer, BatchShaderGenerator, IBatchableElement, ViewableBuffer } from "@pixi/core"
-import { premultiplyTint } from "@pixi/utils"
-import { SpriteBatchGeometry } from "./sprite-batch-geometry"
-import { Shader as Vertex } from "./shader/sprite.vert"
+import { BatchRenderer, BatchShaderGenerator, ExtensionMetadata, ExtensionType, IBatchableElement, Renderer, ViewableBuffer, extensions, utils } from "pixi.js"
 import { Shader as Fragment } from "./shader/sprite.frag"
-import { Compatibility } from "../compatibility/compatibility"
-import { BatchRenderer } from "../compatibility/batch-renderer"
-import { Matrix4x4 } from "../transform/matrix"
+import { Shader as Vertex } from "./shader/sprite.vert"
+import { SpriteBatchGeometry } from "./sprite-batch-geometry"
 
 export class SpriteBatchRenderer extends BatchRenderer {
   constructor(renderer: Renderer) {
@@ -34,7 +30,7 @@ export class SpriteBatchRenderer extends BatchRenderer {
     const alpha = Math.min(element.worldAlpha, 1.0)
     const argb = (alpha < 1.0
       && element._texture.baseTexture.alphaMode)
-      ? premultiplyTint(element._tintRGB, alpha)
+      ? utils.premultiplyTint(element._tintRGB, alpha)
       : element._tintRGB + (alpha * 255 << 24)
 
     for (let i = 0; i < vertexData.length; i += 2) {
@@ -55,6 +51,12 @@ export class SpriteBatchRenderer extends BatchRenderer {
       indexBuffer[iIndex++] = packedVertices + indicies[i]
     }
   }
+
+
+  static extension: ExtensionMetadata = {
+    type: [ExtensionType.RendererPlugin],
+    name: "sprite3d"
+  }
 }
 
-Compatibility.installRendererPlugin("sprite3d", SpriteBatchRenderer)
+extensions.add(SpriteBatchRenderer)

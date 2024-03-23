@@ -1,5 +1,5 @@
-import { Texture } from "@pixi/core"
-import { MIPMAP_MODES } from "@pixi/constants"
+import { Texture } from "pixi.js"
+import { MIPMAP_MODES } from "pixi.js"
 import { Cubemap } from "../cubemap/cubemap"
 
 import png from "./assets/lut-ggx.png"

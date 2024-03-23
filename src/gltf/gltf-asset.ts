@@ -1,8 +1,6 @@
-import { settings } from "@pixi/settings"
-import { Texture } from "@pixi/core"
-import { glTFResourceLoader } from "./gltf-resource-loader"
-import type { LoaderResource } from "@pixi/loaders"
-import { Compatibility } from "../compatibility/compatibility"
+import { Assets, settings } from "pixi.js"
+import { Texture } from "pixi.js"
+import { glTFILoaderResource, glTFResourceLoader } from "./gltf-resource-loader"
 
 /**
  * glTF assets are JSON files plus supporting external data.
@@ -94,9 +92,6 @@ export class glTFAsset {
    * @param url The url to load.
    */
   static async fromURL(url: string, options?: RequestInit | undefined): Promise<glTFAsset> {
-    if (!Compatibility.assets) {
-      throw new Error("PIXI3D: This feature is only available when using PixiJS v7+")
-    }
     const response = await settings.ADAPTER.fetch(url, options)
     return new Promise<glTFAsset>(async (resolve) => {
       if (url.includes(".glb")) {
@@ -118,19 +113,16 @@ class ResourceLoader implements glTFResourceLoader {
   constructor(private parentURL: string) {
   }
 
-  load(uri: string, onComplete: (resource: LoaderResource) => void): void {
+  load(uri: string, onComplete: (resource: glTFILoaderResource) => void): void {
     const url = this.parentURL.substring(
       0, this.parentURL.lastIndexOf("/") + 1) + uri
     const loadAsync = async () => {
-      if (!Compatibility.assets) {
-        throw new Error("PIXI3D: Assets are not available in current version of PixiJS.")
-      }
       let resource: { data?: ArrayBuffer, texture?: Texture } = {}
       if (url.includes(".bin")) {
         const response = await settings.ADAPTER.fetch(url)
         resource.data = await response.arrayBuffer()
       } else {
-        let texture = await Compatibility.assets.load<Texture>(url)
+        let texture = await Assets.load<Texture>(url)
         if (texture) {
           // @ts-ignore
           resource.texture = texture

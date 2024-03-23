@@ -1,11 +1,11 @@
-import { EventEmitter } from '@pixi/utils';
+import { utils } from "pixi.js"
 import { Message } from "./message"
 
 export namespace Debug {
   const messages: Message[] = []
-  const eventEmitter = new EventEmitter()
+  const eventEmitter = new utils.EventEmitter()
 
-  export function on(event: string | symbol, fn: EventEmitter.ListenerFn, context: any) {
+  export function on(event: string | symbol, fn: utils.EventEmitter.ListenerFn, context: any) {
     eventEmitter.on(event, fn, context)
   }
 

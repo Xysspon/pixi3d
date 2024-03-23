@@ -1,5 +1,5 @@
-import { Renderer, RenderTexture } from "@pixi/core"
-import { SCALE_MODES, TYPES } from "@pixi/constants"
+import { Renderer, RenderTexture } from "pixi.js"
+import { SCALE_MODES, TYPES } from "pixi.js"
 import { Capabilities } from "../capabilities"
 import { ShadowQuality } from "./shadow-quality"
 

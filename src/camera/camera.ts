@@ -1,6 +1,6 @@
-import { IPointData, Point, ObservablePoint, DEG_TO_RAD } from "@pixi/math"
-import { Renderer } from "@pixi/core"
-import { IDestroyOptions } from "@pixi/display"
+import { IPointData, Point, ObservablePoint, DEG_TO_RAD, ExtensionMetadata } from "pixi.js"
+import { ExtensionType, Renderer, extensions } from "pixi.js"
+import { IDestroyOptions } from "pixi.js"
 import { Container3D } from "../container"
 import { Mat4 } from "../math/mat4"
 import { Ray } from "../math/ray"
@@ -9,7 +9,6 @@ import { Vec4 } from "../math/vec4"
 import { MatrixComponent } from "../transform/matrix-component"
 import { Point3D } from "../transform/point"
 import { TransformId } from "../transform/transform-id"
-import { Compatibility } from "../compatibility/compatibility"
 import { Matrix4x4 } from "../transform/matrix"
 
 const vec3 = new Float32Array(3)
@@ -294,6 +293,11 @@ export class Camera extends Container3D implements TransformId {
     }
     return this._viewProjection.data
   }
+
+  static extension: ExtensionMetadata = {
+    type: [ExtensionType.RendererPlugin],
+    name: "camera"
+  }
 }
 
-Compatibility.installRendererPlugin("camera", Camera)
+extensions.add(Camera);

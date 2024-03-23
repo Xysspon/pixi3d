@@ -1,10 +1,9 @@
-import { Ticker } from '@pixi/ticker';
-import { EventEmitter } from '@pixi/utils';
+import { Ticker, utils } from "pixi.js";
 
 /**
  * Represents an animation.
  */
-export abstract class Animation extends EventEmitter {
+export abstract class Animation extends utils.EventEmitter {
   private _ticker?: Ticker
   private _update?: (...params: any[]) => void
 

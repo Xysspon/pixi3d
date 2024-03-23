@@ -1,5 +1,5 @@
-import { ObservablePoint, DEG_TO_RAD } from "@pixi/math"
-import { Texture } from "@pixi/core"
+import { ObservablePoint, DEG_TO_RAD } from "pixi.js"
+import { Texture } from "pixi.js"
 import { Mat3 } from "../math/mat3"
 
 /**

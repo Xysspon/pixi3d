@@ -1,4 +1,4 @@
-import { DisplayObject } from "@pixi/display"
+import { DisplayObject } from "pixi.js"
 
 export interface CompositeSpriteOptions {
   /**

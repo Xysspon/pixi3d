@@ -1,4 +1,4 @@
-import config from "./rollup.build"
+import config from "./rollup.build.mjs"
 import resolve from '@rollup/plugin-node-resolve'
 import serve from "rollup-plugin-serve"
 import commonjs from '@rollup/plugin-commonjs'

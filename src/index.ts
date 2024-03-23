@@ -1,7 +1,6 @@
-/// <reference types="@pixi/mixin-get-child-by-name" />
+/// <reference types="pixi.js" />
 
 export { glTFLoader } from "./loader/gltf-loader"
-export { glTFBinaryLoader } from "./loader/gltf-binary-loader"
 export { glTFAsset } from "./gltf/gltf-asset"
 export type { glTFResourceLoader } from "./gltf/gltf-resource-loader"
 export { Point3D } from "./transform/point"

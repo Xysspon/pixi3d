@@ -1,4 +1,4 @@
-import { Renderer } from "@pixi/core"
+import { Renderer } from "pixi.js"
 
 export namespace StandardShaderSource {
   export function build(source: string, features: string[], renderer: Renderer) {

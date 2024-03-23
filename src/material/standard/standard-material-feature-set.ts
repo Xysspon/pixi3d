@@ -1,5 +1,5 @@
-import { Renderer } from "@pixi/core"
-import { settings } from "@pixi/settings"
+import { Renderer } from "pixi.js"
+import { settings } from "pixi.js"
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
 import { StandardMaterialAlphaMode } from "./standard-material-alpha-mode"
 import { StandardMaterialDebugMode } from "./standard-material-debug-mode"

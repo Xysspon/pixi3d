@@ -1,6 +1,6 @@
-import { Sprite } from "@pixi/sprite"
-import { Texture, Resource } from "@pixi/core"
-import { settings } from "@pixi/settings"
+import { Sprite } from "pixi.js"
+import { Texture, Resource } from "pixi.js"
+import { settings } from "pixi.js"
 import { Matrix4x4 } from "../transform/matrix"
 
 export class ProjectionSprite extends Sprite {

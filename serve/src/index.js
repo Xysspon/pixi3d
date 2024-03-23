@@ -7,18 +7,18 @@ globalThis.__PIXI_APP__ = app
 let control = new PIXI3D.CameraOrbitControl(app.view)
 control.enableDamping = true
 
-app.loader.add("assets/chromatic/diffuse.cubemap")
-app.loader.add("assets/chromatic/specular.cubemap")
-app.loader.add("assets/teapot/teapot.gltf")
-
-app.loader.load((_, resources) => {
+PIXI.Assets.load([
+  "assets/chromatic/diffuse.cubemap",
+  "assets/chromatic/specular.cubemap",
+  "assets/teapot/teapot.gltf"
+]).then((resources) => {
   PIXI3D.LightingEnvironment.main.imageBasedLighting = new PIXI3D.ImageBasedLighting(
-    resources["assets/chromatic/diffuse.cubemap"].cubemap,
-    resources["assets/chromatic/specular.cubemap"].cubemap
+    resources["assets/chromatic/diffuse.cubemap"],
+    resources["assets/chromatic/specular.cubemap"]
   )
 
   let model = app.stage.addChild(
-    PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"].gltf))
+    PIXI3D.Model.from(resources["assets/teapot/teapot.gltf"]))
   model.y = -0.8
   model.meshes.forEach(mesh => {
     mesh.material.exposure = 1.3

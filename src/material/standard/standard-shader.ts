@@ -1,5 +1,5 @@
-import { Program, Renderer, State, Buffer } from "@pixi/core"
-import { DRAW_MODES } from "@pixi/constants"
+import { Program, Renderer, State, Buffer } from "pixi.js"
+import { DRAW_MODES } from "pixi.js"
 
 import { MeshGeometry3D } from "../../mesh/geometry/mesh-geometry"
 import { Mesh3D } from "../../mesh/mesh"

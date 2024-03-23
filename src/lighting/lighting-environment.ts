@@ -1,14 +1,13 @@
-import { Renderer, IRendererPlugin } from "@pixi/core"
-import { Compatibility } from "../compatibility/compatibility"
+import { ExtensionMetadata, ExtensionType, ISystem, Renderer, extensions } from "pixi.js"
+import { Fog } from "./fog"
 import { ImageBasedLighting } from "./image-based-lighting"
 import { Light } from "./light"
-import { Fog } from "./fog"
 
 /**
  * A lighting environment represents the different lighting conditions for a 
  * specific object or an entire scene.
  */
-export class LightingEnvironment implements IRendererPlugin {
+export class LightingEnvironment implements ISystem {
   /** The image-based lighting object. */
   imageBasedLighting?: ImageBasedLighting
 
@@ -48,6 +47,11 @@ export class LightingEnvironment implements IRendererPlugin {
   get valid() {
     return !this.imageBasedLighting || this.imageBasedLighting.valid
   }
+
+ static extension: ExtensionMetadata = {
+    type: [ExtensionType.RendererPlugin],
+    name: "lighting"
+  }
 }
 
-Compatibility.installRendererPlugin("lighting", LightingEnvironment)
+extensions.add(LightingEnvironment)

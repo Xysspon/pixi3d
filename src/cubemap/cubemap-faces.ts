@@ -1,4 +1,4 @@
-import { Texture } from "@pixi/core"
+import { Texture } from "pixi.js"
 
 export interface CubemapFaces {
   /** The texture or url for positive x. */

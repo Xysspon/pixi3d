@@ -1,11 +1,9 @@
-import { TARGETS, TYPES, FORMATS, ALPHA_MODES } from "@pixi/constants"
-import { BaseTexture, Texture } from "@pixi/core"
-import { MipmapResource } from "./mipmap-resource"
-import { CubemapResource, MipmapResourceArray } from "./cubemap-resource"
+import { ALPHA_MODES, BaseTexture, BufferResource, FORMATS, TARGETS, TYPES, Texture } from "pixi.js"
 import { Color } from "../color"
 import { CubemapFaces } from "./cubemap-faces"
-import { BufferResource } from "../compatibility/buffer-resource"
 import { CubemapFormat } from "./cubemap-format"
+import { CubemapResource, MipmapResourceArray } from "./cubemap-resource"
+import { MipmapResource } from "./mipmap-resource"
 
 /**
  * Cubemap which supports multiple user specified mipmaps.

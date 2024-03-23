@@ -1,17 +1,14 @@
-import { ObjectRenderer, Renderer } from "@pixi/core"
-import { MaterialRenderPass } from "./material-render-pass"
+import { ExtensionMetadata, ExtensionType, ObjectRenderer, Renderer, extensions } from "pixi.js"
+import { MaterialRenderSortType } from "../material/material-render-sort-type"
+import { StandardMaterial } from "../material/standard/standard-material"
 import { Mesh3D } from "../mesh/mesh"
-import { ShadowRenderPass } from "../shadow/shadow-render-pass"
-import { CompositeSprite } from "../sprite/composite-sprite"
-import { CompositeSpriteOptions } from "../sprite/composite-sprite-options"
 import { Model } from "../model"
 import { ShadowCastingLight } from "../shadow/shadow-casting-light"
-import { RenderPass } from "./render-pass"
-import { StandardMaterial } from "../material/standard/standard-material"
-import { MaterialRenderSortType } from "../material/material-render-sort-type"
-import { Compatibility } from "../compatibility/compatibility"
-import { SpriteBatchRenderer } from "../sprite/sprite-batch-renderer"
+import { ShadowRenderPass } from "../shadow/shadow-render-pass"
 import { ProjectionSprite } from "../sprite/projection-sprite"
+import { SpriteBatchRenderer } from "../sprite/sprite-batch-renderer"
+import { MaterialRenderPass } from "./material-render-pass"
+import { RenderPass } from "./render-pass"
 
 /**
  * The standard pipeline renders meshes using the set render passes. It's
@@ -141,6 +138,11 @@ export class StandardPipeline extends ObjectRenderer {
       mesh.disableRenderPass(this.shadowPass.name)
     }
   }
+
+  static extension: ExtensionMetadata = {
+    type: [ExtensionType.RendererPlugin],
+    name: "pipeline"
+  }
 }
 
-Compatibility.installRendererPlugin("pipeline", StandardPipeline)
+extensions.add(StandardPipeline)
