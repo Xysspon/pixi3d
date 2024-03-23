@@ -1,4 +1,4 @@
-import { Renderer, Texture, Resource } from "pixi.js"
+import { Renderer, Texture, Resource, ColorSource } from "pixi.js"
 import { IDestroyOptions } from "pixi.js"
 import { BLEND_MODES } from "pixi.js"
 import { ObservablePoint } from "pixi.js"
@@ -77,7 +77,7 @@ export class Sprite3D extends Container3D {
     return this._sprite.tint
   }
 
-  set tint(value: number) {
+  set tint(value: ColorSource) {
     this._sprite.tint = value
   }
 
